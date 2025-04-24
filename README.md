@@ -5,7 +5,7 @@
   Truthy CMS (NestJS Headless API)
 </h1>
 
-<p align="center"> 이 저장소는 NestJS로 작성된 Truthy CMS의 백엔드 API 부분입니다. 프론트엔드를 확인하려면 [https://github.com/gobeam/truthy-react-frontend](https://github.com/gobeam/truthy-react-frontend)를 방문하세요. 이 프로젝트에는 인증, 사용자 관리, 역할 관리, 권한 관리, 이메일 모듈, 계정 설정, OTP, RBAC 지원, 지역화 등을 포함한 API가 포함되어 있습니다. </p>
+<p align="center"> 이 저장소는 NestJS로 작성된 Truthy CMS의 백엔드 API 부분입니다. 프론트엔드를 확인하려면 ( https://github.com/gobeam/truthy-react-frontend ) 를 방문하세요. 이 프로젝트에는 인증, 사용자 관리, 역할 관리, 권한 관리, 이메일 모듈, 계정 설정, OTP, RBAC 지원, 지역화 등을 포함한 API가 포함되어 있습니다. </p>
 <br>
 <p align="center">
 <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/gobeam/truthy">
