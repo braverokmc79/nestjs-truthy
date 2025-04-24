@@ -167,10 +167,11 @@ yarn migration:rollback
 
 ## Docker Setup
 
-**If you want to run project without docker you will not need to create .env file**
+**Docker 없이 프로젝트를 실행하려는 경우 .env 파일을 생성할 필요가 없습니다.**
 
-If you want to use **Docker** to deploy it on production or development stage
-First create a .env file copying from .env.example and add environment for below parameters only since it will be used for building container using docker-compose
+프로덕션 또는 개발 환경에서  **Docker** 를 사용해 배포하려는 경우,
+먼저 .env.example 파일을 복사하여 .env 파일을 생성한 뒤, 아래에 나열된 파라미터들에 대해서만 환경변수를 추가하세요.
+이 변수들은 docker-compose를 사용해 컨테이너를 빌드하는 데 사용됩니다.
 
 ```env
 SERVER_PORT=7777
@@ -181,16 +182,17 @@ DB_PORT=5488
 REDIS_PORT=6399
 ```
 
-After creating env file make changes in configuration in accordance with you development environment. Follow setup guide in case you missed it.
- 
-Now to run containers do
+.env 파일을 생성한 후에는, 사용하는 개발 환경에 맞게 설정 파일도 수정해야 합니다.
+설정 가이드를 참고하여 누락된 부분이 없는지 확인하세요.
+
+이제 컨테이너를 실행하려면 아래 명령어를 사용하세요:
 ```bash
 docker-compose build .
 docker-compose up -d
 ```
-These commands will run 3 containers for PostgresQL, Redis and Main API.
+이 명령어들은 PostgreSQL, Redis, Main API 총 3개의 컨테이너를 실행합니다.
 
-To run migration on docker container
+Docker 컨테이너에서 마이그레이션을 실행하려면 다음 명령어를 사용하세요:
 ```bash
 docker exec -it <container_id_or_name> yarn migrate
 ```
@@ -204,53 +206,55 @@ docker exec -it <container_id_or_name> yarn seed
 
 ## File Structure
 
-This project follows the following file structure:
+이 프로젝트는 다음과 같은 파일 구조를 따릅니다:
 
 ```text
 truthy
-├── config                                  * Contains all configuration files
-│   └── default.yml                         * Default configuration file.
-│   └── development.yml                     * Configuration file for development environment.
-│   └── production.yml                      * Configuration file for production environment.
-│   └── test.yml                            * Configuration file for test environment.    
-├── coverage                                * Coverage reports after running `yarn coverage` command. 
-├── dist                                    * Optimized code for production after `yarn build` is run.
-├── images                                  * this folder is where uploaded profile images are stored. This folder is git ignored.
+├── config                                  * 모든 설정 파일을 포함합니다.
+│   └── default.yml                         * 기본 설정 파일입니다.
+│   └── development.yml                     * 개발 환경 설정 파일입니다.
+│   └── production.yml                      * 프로덕션 환경 설정 파일입니다.
+│   └── test.yml                            * 테스트 환경 설정 파일입니다.
+├── coverage                                * `yarn coverage` 명령어 실행 후 생성된 커버리지 보고서입니다.
+├── dist                                    * `yarn build` 실행 후 생성된 최적화된 프로덕션 코드입니다.
+├── images                                  * 업로드된 프로필 이미지가 저장되는 폴더입니다. 이 폴더는 Git에서 무시됩니다.
 ├── src                  
-│   └── <module>                            * Folder where specific modules all files are stored
-│       └── dto                             * Data Transfer Objects.
-│       └── entity                          * Models for module.
-│       └── pipes                           * Includes validation pipes for NestJS modules.
-│       └── serializer                      * Includes serializer for model data.
-│       └── <module>.controller.ts          * Controller file.
-│       └── <module>.module.ts              * root module file for module.
-│       └── <module>.service.ts             * Service file for <module>.
-│       └── <module>.service.spec.ts        * Test file for service.
-│       └── <module>.repository.ts          * Repository file for <module>.
-│       └── <module>.repository.spec.ts     * Test file for repository.
-│   └── common                              * Common helpers function, dto, entity, exception, decorators etc.
-│   └── config                              * Configuration variables files.
-│   └── database                            * Database folders that includes migration and seeders file
-│       └── migrations                      * Migration folder includes all migration files.
-│       └── seeds                           * Seeds folder includes all seeders files.
-│   └── exception                           * Exception folder includes custom exceptions.
-│   └── app.module.ts                       * Root module of the application.
-│   └── main.ts                             * The entry file of the application which uses the core function NestFactory to create a Nest application instance.
-├── test                                    * Contains E2E tests 
+│   └── <module>                            * 특정 모듈의 모든 파일이 저장되는 폴더입니다.
+│       └── dto                             * 데이터 전송 객체(Data Transfer Object) 파일입니다.
+│       └── entity                          * 모듈의 모델 파일입니다.
+│       └── pipes                           * NestJS 모듈의 유효성 검사 파이프 파일입니다.
+│       └── serializer                      * 모델 데이터를 직렬화하는 파일입니다.
+│       └── <module>.controller.ts          * 모듈의 컨트롤러 파일입니다.
+│       └── <module>.module.ts              * 모듈의 루트 모듈 파일입니다.
+│       └── <module>.service.ts             * 모듈의 서비스 파일입니다.
+│       └── <module>.service.spec.ts        * 서비스에 대한 테스트 파일입니다.
+│       └── <module>.repository.ts          * 모듈의 리포지토리 파일입니다.
+│       └── <module>.repository.spec.ts     * 리포지토리에 대한 테스트 파일입니다.
+│   └── common                              * 공통 helper 함수, DTO, 엔터티, 예외, 데코레이터 등을 포함하는 폴더입니다.
+│   └── config                              * 설정 변수 파일들을 포함하는 폴더입니다.
+│   └── database                            * 데이터베이스 관련 폴더로, 마이그레이션 및 시더 파일이 포함됩니다.
+│       └── migrations                      * 모든 마이그레이션 파일을 포함하는 폴더입니다.
+│       └── seeds                           * 모든 시더 파일을 포함하는 폴더입니다.
+│   └── exception                           * 커스텀 예외를 포함하는 폴더입니다.
+│   └── app.module.ts                       * 애플리케이션의 루트 모듈입니다.
+│   └── main.ts                             * Nest 애플리케이션 인스턴스를 생성하는 엔트리 파일입니다.
+├── test                                    * E2E 테스트를 포함하는 폴더입니다.
+
 ```
 
 **Some important root files**
 
 ```text
-.
-├── .editorconfig                           * Coding styles (also by programming language).
-├── .env                                    * Environment variables for docker.
-├── .prettierrc.js                          * Formatting Prettier options.
-├── .eslintrc.js                            * ESLint configuration and rules.
-├── .docker-compose.yml                     * Docker compose configuration.
-├── Dockerfile                              * Docker file for prod environment.
-├── Dockerfile.dev                          * Docker file for dev environment.
-├── tsconfig.json                           * Typescript configuration for application.
+
+├── .editorconfig                           * 코드 스타일을 설정하는 파일 (프로그래밍 언어별로 적용됨).
+├── .env                                    * Docker 환경 변수 설정 파일.
+├── .prettierrc.js                          * 코드 포맷팅을 위한 Prettier 설정 파일.
+├── .eslintrc.js                            * ESLint 설정 파일 및 규칙.
+├── .docker-compose.yml                     * Docker Compose 설정 파일.
+├── Dockerfile                              * 프로덕션 환경을 위한 Dockerfile.
+├── Dockerfile.dev                          * 개발 환경을 위한 Dockerfile.
+├── tsconfig.json                           * 애플리케이션의 TypeScript 설정 파일.
+
 ```
 
 ---
@@ -259,11 +263,13 @@ truthy
 
 ### Throttle
 
-By default Throttle has been implemented for all API's. Redis is default driver to record throttle state data. You can easily change configuration from config files.
+기본적으로 모든 API에는 요청 제한(Throttle)이 구현되어 있습니다. Redis는 요청 제한 상태 데이터를 기록하는 기본 드라이버로 사용됩니다. 이 설정은 config 파일에서 쉽게 변경할 수 있습니다.
 
 ### Two Factor Authentication (2FA)
 
-User Will have 2FA authentication option available to be turned on or off. For 2FA time-based one-time password is used. A time-based one-time password (TOTP) application automatically generates an authentication code that changes after a certain period of time. Applications like [Authenticator](https://play.google.com/store/apps/details?id=com.azure.authenticator&hl=en&gl=US), [1Password](https://support.1password.com/one-time-passwords/), [Authy](https://authy.com/guides/github/) etc. can be used to generate TOTP. When you enable 2FA, you will be sent a QR code in your email which should be scanned from above mentioned application and TOTP will be generated by those applications.
+사용자는 2FA(이중 인증) 옵션을 켜거나 끌 수 있습니다. 2FA에서는 시간 기반 일회성 비밀번호(TOTP)가 사용됩니다. TOTP 애플리케이션은 일정 시간 간격으로 변경되는 인증 코드를 자동으로 생성합니다. Authenticator, 1Password, Authy와 같은 애플리케이션을 사용하여 TOTP를 생성할 수 있습니다.
+
+2FA를 활성화하면 이메일로 QR 코드가 전송됩니다. 이 코드를 위에서 언급한 애플리케이션에서 스캔하면, 해당 애플리케이션이 TOTP를 생성하게 됩니다.
 
 ---
 
